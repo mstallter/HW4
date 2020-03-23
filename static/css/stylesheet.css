@@ -1,3 +1,18 @@
 body {
-  background-color: lightblue;
+  background-color: rgb(93, 93, 202);
+}
+
+.heading{
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: white;
+}
+
+
+.subheading{
+  text-align: left;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 18px;
+  color: white;
 }

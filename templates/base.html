@@ -3,16 +3,19 @@
 
   <head>
     <meta charset="utf-8">
-    <title>{{ pageTitle }}</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+    <title>Presidents</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
 </head>
+<h1 class="heading">Recent American Presidents</h1>
 
   <body>
-
       {% block body %}
 
 	  {% endblock %}
 
  </body>
+ <footer>
+   <p class="subheading">Created by Michael Stallter</p>
+ </footer>
 
 </html>
