@@ -7,6 +7,7 @@ from wtforms import IntegerField
 import secrets
 import pymysql
 from flask_sqlalchemy import SQLAlchemy
+from flask import request
 
 conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
 
@@ -56,6 +57,16 @@ def add_pres():
         db.session.commit()
         return redirect('/')
     return render_template('add_pres.html', form=form, pageTitle="Add a new President")
+
+@app.route('/delete_pres/<int:Num>', methods=['GET', 'POST'])
+def delete_pres(Num):
+    if request.method == 'POST':
+        pres = mstallter_presidents.query.get_or_404(Num)
+        db.session.delete(pres)
+        db.session.commit()
+        return redirect('/')
+    else:
+        return redirect('/')
 
 
 if __name__ == '__main__':
