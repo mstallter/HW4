@@ -1,11 +1,32 @@
-
-
 {% extends 'base.html' %}
 
 {% block body %}
 
-	<h2> This is my Flask server! </h2>
-
-	<img src="{{ url_for('static', filename='images/flask.jpg') }}" />
+{% if mstallter_presidents %}
+	<table>
+		<thead>
+			<tr>
+				<th>Number</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Age</th>
+				<th>Home State</th>
+				<th>Home City</th>
+				<th>Terms</th>
+				<th>Year of First Term</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in mstallter_presidents %}
+			<td> {{ row.NUM }}</td> 
+			<td> {{ row.FIRSTNAME }} </td>
+			<td> {{ row.LASTNAME }} </td>
+			<td> {{ row.AGE }} </td>
+			<td> {{ row.HOMESTATE }} </td>
+			<td> {{ row.HOMECITY }} </td>
+			<td> {{ row.TERMS }} </td>
+			<td> {{ row.YROFFRSTTERM }} </td>
+		</tbody>
+	</table>
 
 {% endblock %}
