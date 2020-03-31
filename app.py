@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, redirect
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
@@ -15,7 +15,7 @@ app.config['SECRET_KEY'] = 'SuperSecretKey'
 app.config['SQLALCHEMY_DATABASE_URI'] = conn
 db = SQLAlchemy(app)
 
-class mstallter_Pres(db.Model):
+class mstallter_presidents(db.Model):
     NUM = db.Column(db.Integer, primary_key = True)
     FIRSTNAME = db.Column(db.String(225))
     LASTNAME = db.Column(db.String(225))
@@ -44,19 +44,17 @@ class PresForm(FlaskForm):
 
 @app.route('/')
 def index():
-    all_pres = mstallter_Pres.query.all()
+    all_pres = mstallter_presidents.query.all()
     return render_template('index.html', pres = all_pres, pageTitle='America\'s Presidents')
 
 @app.route('/add_pres', methods=['GET', 'POST'])
 def add_pres():
     form = PresForm()
     if form.validate_on_submit():
-        Pres = mstallter_Pres(NUM = form.num.data, FIRSTNAME = form.first_name.data, LASTNAME=form.last_name.data, \
-            AGE=form.age.data, HOMESTATE=form.home_state.data, HOMECITY=form.home_city.data, TERMS=form.terms.data, YROFFRSTTERM=form.first_term.data)
+        Pres = mstallter_presidents(NUM = form.num.data, FIRSTNAME = form.first_name.data, LASTNAME=form.last_name.data, AGE=form.age.data, HOMESTATE=form.home_state.data, HOMECITY=form.home_city.data, TERMS=form.terms.data, YROFFRSTTERM=form.first_term.data)
         db.session.add(Pres)
         db.session.commit()
-        return "<h2> {0} {1} was President number {2} and was from {3}, {4}. They served {5} terms starting in {6} are currently {7} years old.".format(\
-            form.first_name.data,form.last_name.data,form.num.data,form.home_city.data,form.home_state.data,form.terms.data,form.first_term.data,form.age.data)
+        return redirect('/')
     return render_template('add_pres.html', form=form, pageTitle="Add a new President")
 
 

@@ -2,7 +2,7 @@
 
 {% block body %}
 
-{% if mstallter_presidents %}
+{% if pres %}
 	<table>
 		<thead>
 			<tr>
@@ -17,7 +17,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for row in mstallter_presidents %}
+			{% for row in pres %}
+			<tr>
 			<td> {{ row.NUM }}</td> 
 			<td> {{ row.FIRSTNAME }} </td>
 			<td> {{ row.LASTNAME }} </td>
@@ -26,7 +27,9 @@
 			<td> {{ row.HOMECITY }} </td>
 			<td> {{ row.TERMS }} </td>
 			<td> {{ row.YROFFRSTTERM }} </td>
+			</tr>
+			{% endfor %}
 		</tbody>
 	</table>
-
+	{% endif %}
 {% endblock %}
