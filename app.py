@@ -4,19 +4,19 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
 from wtforms import IntegerField
-#import secrets
+import secrets
 import pymysql
 from flask_sqlalchemy import SQLAlchemy
 from flask import request
-import os
+#import os
 
-dbhost = os.environ.get('DBHOST')
-dbuser = os.environ.get('DBUSER')
-dbpass = os.environ.get('DBPASS')
-dbname = os.environ.get('DBNAME')
+#dbhost = os.environ.get('DBHOST')
+#dbuser = os.environ.get('DBUSER')
+#dbpass = os.environ.get('DBPASS')
+#dbname = os.environ.get('DBNAME')
 
-#conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
-conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
+conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
+#conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SuperSecretKey'
@@ -74,6 +74,37 @@ def delete_pres(Num):
         return redirect('/')
     else:
         return redirect('/')
+
+@app.route('/pres/<int:Num>', methods=['GET','POST'])
+def get_pres(Num):
+    pres = mstallter_presidents.query.get_or_404(Num)
+    return render_template('pres.html', form=pres, pageTitle='President Details', legend="Update an Entry")
+
+@app.route('/pres/<int:Num>/update', methods=['GET','POST'])
+def update_pres(Num):
+    pres = mstallter_presidents.query.get_or_404(Num)
+    form = PresForm()
+    if form.validate_on_submit():
+        pres.NUM = form.num.data
+        pres.FIRSTNAME = form.first_name.data
+        pres.LASTNAME = form.last_name.data
+        pres.AGE = form.age.data
+        pres.HOMESTATE = form.home_state.data
+        pres.HOMECITY = form.home_city.data
+        pres.TERMS = form.terms.data
+        pres.YROFFRSTTERM = form.first_term.data
+        db.session.commit()
+        return redirect(url_for('get_pres', Num=pres.NUM))
+    form.num.data = pres.NUM
+    form.first_name.data = pres.FIRSTNAME
+    form.last_name.data = pres.LASTNAME
+    form.age.data = pres.AGE
+    form.home_state.data = pres.HOMESTATE
+    form.home_city.data= pres.HOMECITY
+    form.terms.data = pres.TERMS
+    form.first_term.data = pres.YROFFRSTTERM
+    return render_template('update_pres.html', form=form, pageTitle = 'Update President', legend="Update an Entry")
+
 
 
 if __name__ == '__main__':

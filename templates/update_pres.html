@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h3> {{ legend }}</h3>
+    
+<form method="POST" action="">
+
+    {{ form.csrf_token }}
+    {{ form.num.label }} {{ form.num(size=20) }}<br>
+    {{ form.first_name.label }} {{ form.first_name(size=20) }}<br>
+    {{ form.last_name.label }} {{ form.last_name(size=20) }}<br>
+    {{ form.age.label }} {{ form.age(size=20) }}<br>
+    {{ form.home_state.label }} {{ form.home_state(size=20) }}<br>
+    {{ form.home_city.label }} {{ form.home_city(size=20) }}<br>
+    {{ form.terms.label }} {{ form.terms(size=20) }}<br>
+    {{ form.first_term.label }} {{ form.first_term(size=20) }}
+
+    <input type="submit" value="Save">
+
+</form>
+
+
+{% endblock %}
