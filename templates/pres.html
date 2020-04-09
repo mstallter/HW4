@@ -6,20 +6,20 @@
 <p><a href='{{url_for("index")}}'> Home </a></p> 
 
 {% if form %}
-    <form method='POST', action=''>
-        {{ form.csrf_token }}
-        {{ form.num.label }} {{ form.num(size=20) }}<br>
-        {{ form.first_name.label }} {{ form.first_name(size=20) }}<br>
-        {{ form.last_name.label }} {{ form.last_name(size=20) }}<br>
-        {{ form.age.label }} {{ form.age(size=20) }}<br>
-        {{ form.home_state.label }} {{ form.home_state(size=20) }}<br>
-        {{ form.home_city.label }} {{ form.home_city(size=20) }}<br>
-        {{ form.terms.label }} {{ form.terms(size=20) }}<br>
-        {{ form.first_term.label }} {{ form.first_term(size=20) }}
+<form method='POST', action=''>
+    {{ form.csrf_token }}
+    <p>PRESIDENT NUMBER: </p>{{ form.NUM.label }} {{ form.NUM }}<br>
+    <p>FIRST NAME: </p>{{ form.FIRSTNAME.label }} {{ form.FIRSTNAME }}<br>
+    <p>LAST NAME: </p>{{ form.LASTNAME.label }} {{ form.LASTNAME }}<br>
+    <p>AGE: </p>{{ form.AGE.label }} {{ form.AGE }}<br>
+    <p>HOME STATE: </p>{{ form.HOMESTATE.label }} {{ form.HOMESTATE }}<br>
+    <p>HOME CITY: </p>{{ form.HOMECITY.label }} {{ form.HOMECITY }}<br>
+    <p>TERMS: </p>{{ form.TERMS.label }} {{ form.TERMS }}<br>
+    <p>YEAR OF FIRST TERM: </p>{{ form.YROFFRSTTERM.label }} {{ form.YROFFRSTTERM }}<br>
 
-        <input type="submit" formaction="{{url_for('update_pres', Num=form.num)}}" value="Update">
-        <input type="submit" formaction="{{url_for('delete_pres', Num=form.num)}}" value="Delete">
-    </form>
+    <input type="submit" formaction="{{url_for('update_pres', Num=form.NUM)}}" value="Update">
+    <input type="submit" formaction="{{url_for('delete_pres', Num=form.NUM)}}" value="Delete">
+</form>
 {% endif %}
 
 

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 from flask import render_template, redirect
 from flask_wtf import FlaskForm
 from wtforms import StringField
@@ -72,7 +72,7 @@ def delete_pres(Num):
         db.session.delete(pres)
         db.session.commit()
         return redirect('/')
-    else:
+    else:     
         return redirect('/')
 
 @app.route('/pres/<int:Num>', methods=['GET','POST'])
