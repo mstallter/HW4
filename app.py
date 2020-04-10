@@ -8,6 +8,7 @@ import secrets
 import pymysql
 from flask_sqlalchemy import SQLAlchemy
 from flask import request
+from sqlalchemy import or_
 #import os
 
 #dbhost = os.environ.get('DBHOST')
@@ -105,6 +106,17 @@ def update_pres(Num):
     form.first_term.data = pres.YROFFRSTTERM
     return render_template('update_pres.html', form=form, pageTitle = 'Update President', legend="Update an Entry")
 
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method=='POST':
+        form = request.form
+        search_value = form["search_string"]
+        search = "%{0}%".format(search_value)
+        results = mstallter_presidents.query.filter(or_(mstallter_presidents.FIRSTNAME.like(search),
+        mstallter_presidents.LASTNAME.like(search))).all()
+        return render_template('index.html', pres=results, pageTitle='Search President', legend='Search Results')
+    else:
+        return redirect('/')
 
 
 if __name__ == '__main__':
