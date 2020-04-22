@@ -1,47 +1,43 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h3><a href='{{url_for("index")}}'> Home </a></h3> 
-<h3><a href = "{{ url_for('.add_pres')}}">Add a new President </a></h3>
 <br>
-<form method="POST">
-	<input type="text" autofocus="autofocus" name="search_string">
-	<input type="submit" formaction="/search" value="Search">
-</form>
+<div class="container">
 
-{% if pres %}
-	<table>
-		<thead>
-			<tr>
-				<th>Number</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Age</th>
-				<th>Home State</th>
-				<th>Home City</th>
-				<th>Terms</th>
-				<th>Year of First Term</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for row in pres %}
-			<tr>
-				<td> {{ row.NUM }}</td> 
-				<td> {{ row.FIRSTNAME }} </td>
-				<td> {{ row.LASTNAME }} </td>
-				<td> {{ row.AGE }} </td>
-				<td> {{ row.HOMESTATE }} </td>
-				<td> {{ row.HOMECITY }} </td>
-				<td> {{ row.TERMS }} </td>
-				<td> {{ row.YROFFRSTTERM }} </td>
-				<td> 
-					<form action="{{ url_for('get_pres', Num=row.NUM) }}" method="POST">
-						<input type="submit" value="Details"/>
-					</form>
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	{% endif %}
+	{% if pres %}
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Number</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Age</th>
+					<th scope="col">Home State</th>
+					<th scope="col">Home City</th>
+					<th scope="col">Terms</th>
+					<th scope="col">Year of First Term</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in pres %}
+				<tr>
+					<td scope="row"> {{ row.NUM }}</td> 
+					<td> {{ row.FIRSTNAME }} </td>
+					<td> {{ row.LASTNAME }} </td>
+					<td> {{ row.AGE }} </td>
+					<td> {{ row.HOMESTATE }} </td>
+					<td> {{ row.HOMECITY }} </td>
+					<td> {{ row.TERMS }} </td>
+					<td> {{ row.YROFFRSTTERM }} </td>
+					<td> 
+						<form action="{{ url_for('get_pres', Num=row.NUM) }}" method="POST">
+							<input class="btn btn-info" type="submit" value="Details">
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+</div>
 {% endblock %}
