@@ -4,20 +4,20 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
 from wtforms import IntegerField
-import secrets
+#import secrets
 import pymysql
 from flask_sqlalchemy import SQLAlchemy
 from flask import request
 from sqlalchemy import or_
-#import os
+import os
 
-#dbhost = os.environ.get('DBHOST')
-#dbuser = os.environ.get('DBUSER')
-#dbpass = os.environ.get('DBPASS')
-#dbname = os.environ.get('DBNAME')
+dbhost = os.environ.get('DBHOST')
+dbuser = os.environ.get('DBUSER')
+dbpass = os.environ.get('DBPASS')
+dbname = os.environ.get('DBNAME')
 
-conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
-#conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
+#conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
+conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SuperSecretKey'
